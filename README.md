@@ -24,122 +24,110 @@ An AI-powered grading system designed specifically for K-5 education, featuring 
 - Firebase project with Firestore and Storage enabled
 - Gemini AI API key
 - Perplexity API key (optional)
-- Docker (optional)
+- Docker
 
 ## 🛠️ Installation
 
-### Option 1: Docker (Recommended)
+### With Docker (Recommended)
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd Mark-AI
-   ```
+1.  **Clone the repository**
+    ```bash
+    git clone <repository-url>
+    cd Mark-AI
+    ```
 
-2. **Set up environment variables**
-   ```bash
-   cp config.env.example .env
-   # Edit .env with your API keys and configuration
-   ```
+2.  **Set up environment variables**
+    Create a `.env` file in the root directory and add the following variables:
+    ```
+    GEMINI_API_KEY="your_gemini_api_key"
+    PERPLEXITY_API_KEY="your_perplexity_api_key"
+    ```
+    See the **Environment Variables** section for a complete list of all possible variables.
 
-3. **Run with Docker Compose**
-   ```bash
-   docker-compose up -d
-   ```
+3.  **Run with Docker Compose**
+    ```bash
+    docker-compose up -d
+    ```
+    The application will be available at `http://localhost:8501`.
 
-### Option 2: Manual Installation
+### Manual Installation
 
-1. **Install backend dependencies**
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   ```
+1.  **Install backend dependencies**
+    ```bash
+    cd backend
+    pip install -r requirements.txt
+    ```
 
-2. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   pip install -r requirements.txt
-   ```
+2.  **Install frontend dependencies**
+    ```bash
+    cd frontend
+    pip install -r requirements.txt
+    ```
 
-3. **Set up Firebase**
-   - Create a Firebase project
-   - Download service account credentials
-   - Place credentials file in `config/firebase-credentials.json`
+3.  **Set up Firebase**
+    - Create a Firebase project
+    - Download your service account credentials
+    - Place the credentials file at `config/firebase-credentials.json`
 
-4. **Configure environment variables**
-   ```bash
-   export GEMINI_API_KEY="your_gemini_api_key"
-   export PERPLEXITY_API_KEY="your_perplexity_api_key"
-   ```
+4.  **Configure environment variables**
+    Create a `config.env` file in the root directory and add all the required variables. See the **Environment Variables** section for a complete list.
 
 ## 🚀 Running the Application
 
-### Backend (FastAPI)
+### With the Startup Script
+The easiest way to run the application manually is with the provided startup script:
+```bash
+python start_edugrade.py
+```
+This script will:
+- Load environment variables from `config.env`
+- Check system requirements
+- Set up necessary directories
+- Start the backend and frontend servers
+
+### Manually
+#### Backend (FastAPI)
 ```bash
 cd backend
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
-
-### Frontend (Streamlit)
+#### Frontend (Streamlit)
 ```bash
 cd frontend
 streamlit run streamlit_dashboard.py --server.port 8501
 ```
 
-## 📖 Usage Guide
+## 🔧 Environment Variables
 
-### For Teachers
+The following environment variables are used to configure the application. You can set them in a `.env` file for Docker or a `config.env` file for manual execution.
 
-1. **Create an Exam**
-   - Navigate to "Create Exam" tab
-   - Fill in exam details and answer key
-   - Save the exam ID for student submissions
-
-2. **Upload Student Submissions**
-   - Go to "Upload Submissions" tab
-   - Enter exam ID, student information
-   - Upload scanned answer sheets (PDF/JPG/PNG)
-   - Start AI processing
-
-3. **Review and Approve**
-   - Check "Review & Approve" tab for pending submissions
-   - Review AI-generated grades and feedback
-   - Override grades if necessary
-   - Approve submissions for parent access
-
-### For Parents
-
-1. **Access Student Reports**
-   - Enter your child's Student ID
-   - View approved reports and grades
-   - Download or print report cards
-   - Access detailed feedback and insights
-
-### For Administrators
-
-1. **System Management**
-   - Monitor system health and usage
-   - Manage users and permissions
-   - View analytics and reports
-
-## 🔧 Configuration
-
-### Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `GEMINI_API_KEY` | Google Gemini AI API key | Required |
-| `PERPLEXITY_API_KEY` | Perplexity API key | Optional |
-| `FIREBASE_CREDENTIALS_PATH` | Path to Firebase credentials | `config/firebase-credentials.json` |
-| `API_BASE_URL` | Backend API URL | `http://localhost:8000/api/v1` |
-
-### Firebase Setup
-
-1. Create a new Firebase project
-2. Enable Firestore Database
-3. Enable Cloud Storage
-4. Generate service account credentials
-5. Download and place credentials file
+| Variable | Description | Default | Required |
+|---|---|---|---|
+| `API_BASE_URL` | The base URL for the backend API. | `http://localhost:8000/api/v1` | No |
+| `BACKEND_HOST` | The host for the backend server. | `0.0.0.0` | No |
+| `BACKEND_PORT` | The port for the backend server. | `8000` | No |
+| `FRONTEND_HOST` | The host for the frontend server. | `localhost` | No |
+| `FRONTEND_PORT` | The port for the frontend server. | `8501` | No |
+| `FIREBASE_CREDENTIALS_PATH`| Path to the Firebase credentials file. | `config/firebase-credentials.json` | Yes |
+| `FIREBASE_PROJECT_ID` | Your Firebase project ID. | | Yes |
+| `FIREBASE_STORAGE_BUCKET` | Your Firebase storage bucket URL. | | Yes |
+| `GEMINI_API_KEY` | Your Google Gemini AI API key. | | Yes |
+| `PERPLEXITY_API_KEY` | Your Perplexity AI API key. | | Yes |
+| `YOLO_MODEL_PATH` | The path to the YOLOv8 model file. | `data/models/yolov8-tiny.pt` | No |
+| `YOLO_CONFIDENCE_THRESHOLD` | The confidence threshold for the YOLOv8 model. | `0.5` | No |
+| `MAX_FILE_SIZE_MB` | The maximum file size for uploads in MB. | `10` | No |
+| `ALLOWED_FILE_TYPES` | The allowed file types for uploads. | `pdf,jpg,jpeg,png` | No |
+| `UPLOAD_DIRECTORY` | The directory to store uploaded files. | `data/uploads` | No |
+| `PROCESSED_DIRECTORY` | The directory to store processed images. | `data/processed` | No |
+| `REGIONS_DIRECTORY` | The directory to store segmented answer regions. | `data/regions` | No |
+| `MAX_CONCURRENT_PROCESSING`| The maximum number of concurrent processing jobs. | `5` | No |
+| `PROCESSING_TIMEOUT_SECONDS`| The timeout for processing a submission in seconds. | `300` | No |
+| `LOG_LEVEL` | The logging level. | `INFO` | No |
+| `LOG_FILE` | The path to the log file. | `logs/edugrade.log` | No |
+| `SECRET_KEY` | A secret key for signing tokens. | | Yes |
+| `ACCESS_TOKEN_EXPIRE_MINUTES`| The expiration time for access tokens in minutes. | `30` | No |
+| `DEBUG` | Whether to run in debug mode. | `True` | No |
+| `RELOAD` | Whether to automatically reload the server on code changes. | `True` | No |
 
 ## 🧪 Testing
 
@@ -147,94 +135,6 @@ Run the test suite:
 ```bash
 pytest tests/ -v
 ```
-
-Run specific test categories:
-```bash
-# Unit tests only
-pytest tests/test_edugrade.py::TestPreprocessingAgent -v
-
-# Integration tests
-pytest tests/test_edugrade.py::TestIntegration -v
-```
-
-## 📁 Project Structure
-
-```
-edugrade-k5/
-├── backend/
-│   ├── app/
-│   │   ├── main.py                 # FastAPI application
-│   │   ├── agents/                 # AI processing agents
-│   │   │   ├── preprocessing_agent.py
-│   │   │   ├── segmentation_agent.py
-│   │   │   ├── grading_agent.py
-│   │   │   └── factcheck_agent.py
-│   │   ├── api/                    # API endpoints
-│   │   │   ├── exams.py
-│   │   │   ├── submissions.py
-│   │   │   └── approvals.py
-│   │   └── services/               # External services
-│   │       └── firebase_service.py
-│   └── requirements.txt
-├── frontend/
-│   ├── streamlit_dashboard.py     # Main UI
-│   └── requirements.txt
-├── data/
-│   ├── models/                    # AI models
-│   ├── uploads/                   # Uploaded files
-│   ├── processed/                 # Processed images
-│   └── regions/                   # Segmented regions
-├── tests/
-│   └── test_edugrade.py           # Test suite
-├── config/
-│   └── firebase-credentials.json  # Firebase credentials
-├── docker-compose.yml
-├── Dockerfile.backend
-├── Dockerfile.frontend
-└── README.md
-```
-
-## 🔄 API Endpoints
-
-### Exams
-- `POST /api/v1/exams/` - Create exam
-- `GET /api/v1/exams/{exam_id}` - Get exam
-- `PUT /api/v1/exams/{exam_id}/answer-key` - Update answer key
-
-### Submissions
-- `POST /api/v1/submissions/` - Upload submission
-- `GET /api/v1/submissions/{submission_id}` - Get submission
-- `POST /api/v1/process/{submission_id}` - Process submission
-
-### Approvals
-- `POST /api/v1/approve/{submission_id}` - Approve submission
-- `GET /api/v1/approve/pending/{teacher_id}` - Get pending approvals
-- `GET /api/v1/reports/{student_id}` - Get student reports
-
-## 🛡️ Security Considerations
-
-- All file uploads are validated for type and size
-- Teacher approval required before parent access
-- Firebase security rules enforce data access
-- API keys stored as environment variables
-- Input validation on all endpoints
-
-## 🚀 Deployment
-
-### Production Deployment
-
-1. **Set up production environment variables**
-2. **Configure Firebase security rules**
-3. **Set up reverse proxy (nginx)**
-4. **Enable HTTPS**
-5. **Set up monitoring and logging**
-
-### Scaling Considerations
-
-- Use Redis for caching
-- Implement horizontal scaling with load balancer
-- Use CDN for static assets
-- Consider serverless deployment for AI processing
 
 ## 🤝 Contributing
 
@@ -246,21 +146,4 @@ edugrade-k5/
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Check the documentation
-- Review the test cases for usage examples
-
-## 🔮 Future Enhancements
-
-- [ ] Blockchain integration for grade verification
-- [ ] Advanced analytics and reporting
-- [ ] Mobile app development
-- [ ] Multi-language support
-- [ ] Integration with LMS systems
-- [ ] Advanced AI models for handwriting recognition
-- [ ] Real-time collaboration features
+This project is licensed under the MIT License.
