@@ -1,0 +1,51 @@
+
+# EduGrade AI K-5 Grading Platform - Requirements
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# AI and ML Libraries
+ultralytics==8.0.196
+opencv-python==4.8.1.78
+pillow==10.1.0
+numpy>=1.26.0
+google-generativeai==0.3.2
+
+# Database and Storage
+firebase-admin==6.2.0
+google-cloud-storage==2.10.0
+
+# HTTP and API
+requests==2.31.0
+aiohttp==3.9.1
+httpx==0.25.2
+
+# Frontend
+streamlit==1.28.1
+plotly==5.17.0
+pandas==2.1.4
+
+# Image Processing and Computer Vision
+scikit-image==0.22.0
+matplotlib==3.8.2
+
+# Utilities
+python-multipart==0.0.6
+python-dotenv==1.0.0
+
+
+# Development and Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+black==23.11.0
+flake8==6.1.0
+
+# Optional: Blockchain Integration
+# web3==6.11.3  # Uncomment if using DevDock blockchain
+
+# Optional: Additional AI Services
+# openai==1.3.7  # Alternative to Gemini
+# anthropic==0.7.8  # Alternative AI provider

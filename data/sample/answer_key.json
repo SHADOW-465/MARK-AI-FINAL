@@ -1,0 +1,32 @@
+{
+  "question_1": {
+    "question": "What is 2 + 2?",
+    "answer": "4",
+    "max_score": 1,
+    "type": "multiple_choice"
+  },
+  "question_2": {
+    "question": "What is the capital of France?",
+    "answer": "Paris",
+    "max_score": 1,
+    "type": "short_answer"
+  },
+  "question_3": {
+    "question": "Name three primary colors.",
+    "answer": "red, blue, yellow",
+    "max_score": 2,
+    "type": "short_answer"
+  },
+  "question_4": {
+    "question": "What is 10 - 3?",
+    "answer": "7",
+    "max_score": 1,
+    "type": "multiple_choice"
+  },
+  "question_5": {
+    "question": "Which planet is closest to the Sun?",
+    "answer": "Mercury",
+    "max_score": 1,
+    "type": "multiple_choice"
+  }
+}

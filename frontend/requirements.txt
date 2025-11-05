@@ -1,0 +1,16 @@
+# EduGrade AI K-5 Grading Platform - Frontend Requirements
+
+# Streamlit and Visualization
+streamlit==1.28.1
+plotly==5.17.0
+pandas==2.1.4
+
+# Image Processing
+pillow==10.1.0
+opencv-python==4.8.1.78
+
+# HTTP Requests
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.0

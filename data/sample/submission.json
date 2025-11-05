@@ -1,0 +1,12 @@
+{
+  "exam_id": "exam_001",
+  "student_id": "student_001",
+  "student_name": "Alice Johnson",
+  "teacher_id": "teacher_001",
+  "file_paths": [
+    "data/uploads/sample_answer_sheet.pdf"
+  ],
+  "status": "pending_review",
+  "processing_stage": "grading",
+  "created_at": "2024-01-15T14:30:00Z"
+}
